@@ -10,6 +10,7 @@ dependencies = [
     "jsonpatch>=1.33",
     "langchain>=0.3.27",
     "langchain-core>=0.3.79",
+    "langchain-google-vertexai>=2.1.2",
     "langchain-groq>=0.3.8",
     "langchain-ollama>=0.3.10",
     "langchain-openai>=0.3.35",

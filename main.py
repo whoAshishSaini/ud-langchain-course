@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_ollama import ChatOllama
+from langchain_google_vertexai import ChatVertexAI
 load_dotenv()
 
 
@@ -30,7 +31,9 @@ In 2002, Musk founded the space technology company SpaceX, becoming its CEO and 
     llm_groq = ChatGroq(model="llama-3.1-8b-instant",
     temperature=0.0)
 
-    llm_ollama = ChatOllama(model="gemma3:4b",temperature=0.0)
+    #llm_ollama = ChatOllama(model="gemma3:4b",temperature=0.0)
+
+    #llm_vertex = ChatVertexAI(model="gemini-2.5-flash", temperature=0.0)
 
     chain=summary_prompt_template | llm_groq
     response = chain.invoke(input={"information": information})
