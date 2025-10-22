@@ -34,21 +34,21 @@ def main():
     )
 
     tools = [firecrawl_search_tool]
-    llm = ChatGroq(model="qwen/qwen3-32b", temperature=0.0,reasoning_format="hidden")
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.0)
     react_prompt = hub.pull("hwchase17/react")
+    structured_llm = llm.with_structured_output(AgentResponse)
     output_parser = PydanticOutputParser(pydantic_object=AgentResponse)
     react_prompt_with_format_instructions = PromptTemplate(
         template=REACT_PROMPT_WITH_FORMAT_INSTRUCTIONS,
         input_variables=["input", "tools", "tool_names", "agent_Scratchpad"],
-    ).partial(format_instructions=output_parser.get_format_instructions())
+    ).partial(format_instructions="")
 
     agent = create_react_agent(
         llm=llm, prompt=react_prompt_with_format_instructions, tools=tools
     )
     agent_executor = AgentExecutor(agent=agent, verbose=True, tools=tools,handle_parsing_errors=True)
     extract_output = RunnableLambda(lambda x: x["output"])
-    parse_output = RunnableLambda(lambda x: output_parser.parse(x))
-    chain = agent_executor | extract_output | parse_output
+    chain = agent_executor | extract_output | structured_llm
 
     result = chain.invoke(
         input={
