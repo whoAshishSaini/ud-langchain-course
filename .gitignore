@@ -1,0 +1,27 @@
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+
+# Test and coverage
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Log files
+*.log
+
+# Configuration files
+config.ini
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
